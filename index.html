@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AS 5369:2023 - Clinical Reprocessing for Dental Assistants</title>
+    <style>
+        /* Brand Colours & Variables */
+        :root {
+            --brand-purple-dark: #532A8C;
+            --brand-purple-med: #9D8ABB;
+            --brand-purple-light: #C3ACE8;
+            --brand-green-dark: #7ABF49;
+            --brand-green-light: #96BF78;
+            --brand-bg: #F2F2F2;
+            --text-main: #333333;
+            --white: #ffffff;
+            --error: #d9534f;
+        }
+
+        /* Base Styles */
+        body {
+            font-family: 'Open Sans', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-size: 16px; /* Ideal for LMS readability */
+            background-color: var(--brand-bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--brand-purple-dark);
+            margin-top: 0;
+        }
+
+        .container {
+            width: 100%; /* Full width for the LMS */
+            max-width: none;
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--brand-purple-dark);
+            color: var(--white);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 6px solid var(--brand-green-dark);
+            border-radius: 0 0 15px 15px;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            color: var(--white);
+            margin-bottom: 10px;
+            font-size: 2.2em;
+        }
+
+        header p {
+            font-size: 1.2em;
+            margin: 0;
+            color: var(--brand-purple-light);
+        }
+
+        /* Section Cards */
+        .section-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-left: 6px solid var(--brand-purple-med);
+        }
+
+        /* Main Tabs Container */
+        .main-tabs {
+            display: flex;
+            width: 100%;
+            gap: 5px;
+            margin-bottom: 0;
+        }
+
+        .main-tab-btn {
+            flex: 1;
+            padding: 16px;
+            background-color: var(--brand-purple-med);
+            color: var(--white);
+            border: none;
+            border-radius: 12px 12px 0 0;
+            font-weight: bold;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .main-tab-btn:hover {
+            background-color: var(--brand-purple-light);
+            color: var(--brand-purple-dark);
+        }
+
+        .main-tab-btn.active {
+            background-color: var(--white);
+            color: var(--brand-purple-dark);
+            border-top: 6px solid var(--brand-green-dark);
+        }
+
+        .main-tab-content {
+            display: none;
+            background: var(--white);
+            border-radius: 0 12px 12px 12px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            animation: fadeIn 0.4s ease;
+            box-sizing: border-box;
+            margin-bottom: 30px;
+        }
+
+        .main-tab-content.active {
+            display: block;
+        }
+
+        /* Interactive Tabs (Sub-tabs) */
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            min-width: 150px;
+            padding: 15px;
+            background-color: var(--brand-bg);
+            color: var(--brand-purple-dark);
+            border: 2px solid var(--brand-purple-light);
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            background-color: var(--brand-purple-light);
+        }
+
+        .tab-btn.active {
+            background-color: var(--brand-purple-dark);
+            color: var(--white);
+            border-color: var(--brand-purple-dark);
+            box-shadow: 0 4px 8px rgba(83, 42, 140, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            background-color: var(--brand-bg);
+            border-radius: 8px;
+            border-left: 4px solid var(--brand-green-dark);
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-content h3 {
+            color: var(--brand-purple-dark);
+            margin-bottom: 15px;
+        }
+
+        .tab-content ul {
+            padding-left: 20px;
+        }
+
+        .tab-content li {
+            margin-bottom: 10px;
+        }
+
+        /* Flip Cards for Specifications */
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .flip-card {
+            background-color: transparent;
+            height: 200px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card:hover .flip-card-inner, .flip-card:focus .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .flip-card-front {
+            background-color: var(--brand-green-light);
+            color: var(--brand-purple-dark);
+            border: 2px solid var(--brand-green-dark);
+        }
+
+        .flip-card-front h3 {
+            margin: 0;
+            color: var(--brand-purple-dark);
+        }
+
+        .flip-card-back {
+            background-color: var(--brand-purple-dark);
+            color: var(--white);
+            transform: rotateY(180deg);
+            border: 2px solid var(--brand-purple-dark);
+        }
+
+        .flip-card-back p {
+            margin: 0;
+            font-size: 0.95em;
+        }
+
+        /* Callout Note */
+        .callout {
+            background-color: var(--brand-purple-light);
+            color: var(--brand-purple-dark);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .callout-icon {
+            font-size: 2em;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .tabs, .main-tabs {
+                flex-direction: column;
+            }
+            .main-tab-btn {
+                border-radius: 8px;
+                margin-bottom: 5px;
+            }
+            .main-tab-content {
+                border-radius: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>AS 5369:2023</h1>
+        <p>Reprocessing of Reusable Medical Devices (RMDs)</p>
+    </header>
+
+    <main class="container">
+        
+        <!-- Main Navigation Tabs -->
+        <div class="main-tabs">
+            <button class="main-tab-btn active" onclick="openMainTab(event, 'main-overview')">Overview</button>
+            <button class="main-tab-btn" onclick="openMainTab(event, 'main-workflows')">Clinical Workflows</button>
+            <button class="main-tab-btn" onclick="openMainTab(event, 'main-specs')">Key Specifications</button>
+        </div>
+
+        <!-- Overview Section -->
+        <div id="main-overview" class="main-tab-content active">
+            <h2>Overview of AS 5369:2023</h2>
+            <p><strong>AS 5369:2023</strong> is the primary Australian Standard governing the cleaning, disinfection, and sterilisation of Reusable Medical Devices (RMDs). Effective from December 2023, it supersedes both AS/NZS 4815 and AS/NZS 4187, unifying hospital and office-based practices under one rigorous framework.</p>
+            <p>A key shift in <strong>AS 5369:2023</strong> is the mandatory integration of a documented <strong>Quality Management System (QMS)</strong>. For the Dental Assistant, adherence to this standard means that all processes must not only be performed correctly but must be strictly documented, validated, and aligned with the manufacturer's Instructions for Use (IFU) to mitigate healthcare-associated infections (HAIs).</p>
+        </div>
+
+        <!-- Clinical Implications / Workflows Section -->
+        <div id="main-workflows" class="main-tab-content">
+            <h2>Clinical Implications for the Dental Assistant</h2>
+            <p>Select a core principle below to review the required workflows as defined by AS 5369:2023.</p>
+            
+            <div class="tabs">
+                <button class="tab-btn active" onclick="openSubTab(event, 'tab-cleaning')">1. Validated Cleaning</button>
+                <button class="tab-btn" onclick="openSubTab(event, 'tab-workflow')">2. Segregated Workflow</button>
+                <button class="tab-btn" onclick="openSubTab(event, 'tab-monitoring')">3. Routine Monitoring</button>
+                <button class="tab-btn" onclick="openSubTab(event, 'tab-traceability')">4. Traceability</button>
+            </div>
+
+            <div id="tab-cleaning" class="tab-content active">
+                <h3>Validated Cleaning Processes</h3>
+                <p>Under AS 5369:2023, sterilisation cannot effectively occur without meticulous, validated cleaning. Bioburden protects microorganisms from sterilising agents.</p>
+                <ul>
+                    <li><strong>Manufacturer IFUs:</strong> The standard mandates strict adherence to the RMD manufacturer's Instructions for Use (IFU) for all cleaning processes.</li>
+                    <li><strong>Automated Cleaning:</strong> There is a strong directive towards automated cleaning (e.g., <em>Thermal Disinfectors</em>) over manual cleaning to ensure reproducible, validated outcomes.</li>
+                    <li><strong>Visual Inspection:</strong> Prior to packaging, all RMDs must undergo rigorous visual inspection, using magnification and adequate lighting as specified by the standard, to verify the removal of all soil.</li>
+                </ul>
+            </div>
+
+            <div id="tab-workflow" class="tab-content">
+                <h3>Segregated Workflow and Facility Design</h3>
+                <p>AS 5369:2023 places heavy emphasis on the physical environment to prevent cross-contamination.</p>
+                <ul>
+                    <li><strong>Designated Areas:</strong> Reprocessing facilities must have clear, physical separation between "dirty" (decontamination) and "clean" (packaging/sterilisation) zones.</li>
+                    <li><strong>Unidirectional Flow:</strong> RMDs and personnel must follow a strict one-way workflow from point-of-use &rarr; cleaning &rarr; packaging &rarr; sterilisation &rarr; storage. Backtracking is strictly prohibited to maintain the integrity of clean zones.</li>
+                </ul>
+            </div>
+
+            <div id="tab-monitoring" class="tab-content">
+                <h3>Routine Monitoring and Release</h3>
+                <p>AS 5369:2023 moves away from assuming a cycle worked just because it finished, requiring documented evidence for the release of RMDs.</p>
+                <ul>
+                    <li><strong>Parametric Release:</strong> The DA must verify that the physical parameters (time, temperature, pressure) recorded on the steriliser's logger match the validated <em>Performance Qualification (PQ)</em> profile for that specific load type.</li>
+                    <li><strong>Chemical Indicators (CIs):</strong> Appropriate Class 4, 5, or 6 CIs must be used to verify steam penetration in every pack, acting as a secondary assurance to the physical cycle data.</li>
+                </ul>
+            </div>
+
+            <div id="tab-traceability" class="tab-content">
+                <h3>Traceability and Quality Management</h3>
+                <p>As part of the QMS required by AS 5369:2023, an unbroken audit trail is mandatory.</p>
+                <ul>
+                    <li><strong>Batch Control Identification (BCI):</strong> Every processed RMD must be traceable to the patient, the specific steriliser cycle, and the operator who released the load.</li>
+                    <li><strong>Recall Protocols:</strong> Records must be maintained to enable the immediate identification and recall of any non-conforming RMDs if a sterilisation failure is detected post-release.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Interactive Flip Cards / Specs Section -->
+        <div id="main-specs" class="main-tab-content">
+            <h2>Key Specifications under AS 5369:2023</h2>
+            <p>Hover over or tap the cards below to review specific procedural requirements.</p>
+            
+            <div class="specs-grid">
+                <div class="flip-card" tabindex="0">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h3>Pre-Cleaning at Point of Use</h3>
+                            <p>(Tap to reveal)</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <p>AS 5369:2023 mandates that gross soil removal begins immediately at the point of use. RMDs must be kept moist during transport to the decontamination area to prevent biofilm formation.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card" tabindex="0">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h3>Water Quality Standards</h3>
+                            <p>(Tap to reveal)</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <p>The standard specifies precise limits for microbial and chemical water quality. Final rinse water and steam generation water must be regularly tested to prevent RMD damage and ensure process efficacy.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card" tabindex="0">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h3>Equipment Validation</h3>
+                            <p>(Tap to reveal)</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <p>Installation Qualification (IQ), Operational Qualification (OQ), and annual Performance Qualification (PQ) are strictly required for all thermal disinfectors and sterilisers.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card" tabindex="0">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h3>Event-Related Sterility</h3>
+                            <p>(Tap to reveal)</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <p>Storage requirements focus on event-related sterility. RMDs must be stored in dedicated, access-controlled environments that protect against moisture, dust, and temperature fluctuations.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="callout">
+                <div class="callout-icon">💡</div>
+                <div>
+                    <strong>Standard Alignment:</strong> Unlike older guidelines, AS 5369:2023 is absolute in its requirement for documented proof. For the Dental Assistant, "If it isn't documented according to the facility's QMS, it didn't happen."
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Main Tab functionality
+        function openMainTab(evt, tabName) {
+            // Hide all main tab content
+            var tabContents = document.getElementsByClassName("main-tab-content");
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+
+            // Remove active class from all main buttons
+            var tabBtns = document.getElementsByClassName("main-tab-btn");
+            for (var i = 0; i < tabBtns.length; i++) {
+                tabBtns[i].classList.remove("active");
+            }
+
+            // Show current main tab and add active class to button
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // Sub Tab functionality (for the Workflows section)
+        function openSubTab(evt, tabName) {
+            // Hide all sub tab content
+            var tabContents = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+
+            // Remove active class from all sub buttons
+            var tabBtns = document.getElementsByClassName("tab-btn");
+            for (var i = 0; i < tabBtns.length; i++) {
+                tabBtns[i].classList.remove("active");
+            }
+
+            // Show current sub tab and add active class to button
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>
